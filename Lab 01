@@ -1,0 +1,38 @@
+import student.micro.lightbot.*;
+
+public class Level6Solution
+    extends Level6
+{    
+    /**
+     * This moves the Light Bot
+     */
+    public void myProgram()
+    {
+        LightBot andy = new LightBot();
+        this.addObject(andy, 2, 6);
+        andy.turnLeft();
+        andy.move();
+        andy.jump();
+        andy.jump();
+        andy.turnRight();
+        andy.jump();
+        andy.jump();
+        andy.turnLightOn();
+        andy.jump();
+        andy.turnLeft();
+        andy.move();
+        andy.move();
+        andy.move();
+        andy.turnLightOn();
+        andy.turnLeft();
+        andy.turnLeft();
+        andy.move();
+        andy.move();
+        andy.move();
+        andy.move();
+        andy.move();
+        andy.move();
+        andy.turnLightOn();
+        
+    }
+}
