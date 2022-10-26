@@ -1,0 +1,112 @@
+import student.micro.*;
+import static org.assertj.core.api.Assertions.*;
+import student.micro.jeroo.*;
+import static student.micro.jeroo.CompassDirection.*;
+import static student.micro.jeroo.RelativeDirection.*;
+
+public class SquarePlanterTest
+    extends TestCase
+{
+    
+    /**
+     * Creates a new SquarePlanterTest test object.
+     */
+    
+    private SquarePlanter jeroo;
+    /**
+     * Just there to run the unit tests once
+     */
+    public SquarePlanterTest()
+    {
+        // The constructor is usually empty in unit tests, since it runs
+        // once for the whole class, not once for each test method.
+        // Per-test initialization should be placed in setUp() instead.
+    }
+
+
+    //~ Methods ...............................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Sets up the test fixture.
+     * Called before every test case method.
+     */
+    public void setUp()
+    {
+        Island island = new Island();
+        jeroo = new SquarePlanter(6);
+        island.addObject(jeroo, 1, 1);
+        
+    }
+    
+    /**
+     * Tests the method plantSqaure
+     */
+    public void testplantSqaure()
+    {
+        jeroo.plantSquare();
+        
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(jeroo.getX()).isEqualTo(1);
+        assertThat(jeroo.getFlowers()).isEqualTo(0);
+        
+    }
+    /**
+     * Tests the method plantAllSides()
+     */
+    public void testplantAllSides()
+    {
+        jeroo.plantAllSides();
+        assertThat(jeroo.getFlowers()).isEqualTo(18);
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(jeroo.getX()).isEqualTo(7);
+    }
+    
+    /**
+     * Tests the method plantOneSide()
+     */
+    public void testplantOneSide()
+    {
+        jeroo.plantOneSide();
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(jeroo.getX()).isEqualTo(1);
+        assertThat(jeroo.getFlowers()).isEqualTo(0);
+    }
+    
+    /**
+     * Tests method plantAllSides() if the while loop is false
+     */
+    public void testfalseplantAllSides()
+    {
+        jeroo = new SquarePlanter(0);
+        Island island = new Island();
+        island.addObject(jeroo, 1, 1);
+        
+        jeroo.plantAllSides();
+        
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(jeroo.getX()).isEqualTo(1);
+        assertThat(jeroo.getFlowers()).isEqualTo(0);
+    }
+    
+    /**
+     * Tests method plantOneSide if the while loop is false
+     *
+     */
+    public void testfalseplantOneSide()
+    {
+        jeroo = new SquarePlanter(0);
+        Island island = new Island();
+        island.addObject(jeroo, 1, 1);
+        
+        jeroo.plantOneSide();
+        
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(jeroo.getX()).isEqualTo(1);
+        assertThat(jeroo.getFlowers()).isEqualTo(0);
+    }
+    
+    // ----------------------------------------------------------
+    /*# Insert your own test methods here */
+
+}
