@@ -1,0 +1,108 @@
+import student.media.*;
+
+public class TransformablePicture
+    extends Picture
+{
+    //~ Constructor ...........................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Initializes a newly created TransformablePicture object as a copy
+     * of another image.
+     * @param original the image we are working on
+     */
+    public TransformablePicture(Picture original)
+    {
+        super(original);
+    }
+
+
+    //~ Methods ...............................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Adds the amount of pixels to the image
+     * @param amount adds the amount of pixels
+     * @param dot pixel object
+     */
+    public void adjustPixel(Pixel dot, int amount)
+    {
+        dot.setBlue(dot.getBlue() + amount);
+        dot.setRed(dot.getRed() + amount);
+        dot.setGreen(dot.getGreen() + amount);
+    
+    }
+    /**
+     * Adds a radial shadow that gets darker the farther a pixel is from
+     * the upper left corner.
+     * 
+     * @param rate The speed at which the shadow gets darker, where
+     *             a larger number produces a more gradual shadow
+     */
+    public void radialShadow(int rate)
+    {
+        int sum;
+        for (int x = 0; x < this.getWidth(); x++)
+        {
+            for (int y = 0; y < this.getHeight(); y++)
+            {
+                Pixel pix = this.getPixel(x, y);
+                
+                sum = (x + y) / rate;
+                
+                adjustPixel(this.getPixel(x, y), -sum);                
+            }
+        }
+        
+        
+    }
+    /**
+     * 
+     * 
+     * @param rate The speed at which the shadow gets darker, where
+     *             a larger number produces a more gradual shadow
+     */
+    public void radialGlow(int rate)
+    {
+        int sum;
+        for (int x = 0; x < this.getWidth(); x++)
+        {
+            for (int y = 0; y < this.getHeight(); y++)
+            {
+                Pixel pix = this.getPixel(x, y);
+                sum = ((this.getWidth() - 1 - x) 
+                    + (this.getHeight() - 1 - y)) / rate;
+                adjustPixel(this.getPixel(x, y), sum);
+            }
+        }
+    }
+    /**
+     * 
+     * 
+     * @param rate The speed at which the shadow gets darker, where
+     *             a larger number produces a more gradual shadow
+     */
+    public void colorShift(int rate)
+    {
+        int blue;
+        int red;
+        for (int x = 0; x < this.getWidth(); x++)
+        {
+            for (int y = 0; y < this.getHeight(); y++)
+            {
+                Pixel pix = this.getPixel(x, y);
+                
+                pix.setGreen(pix.getGreen());
+                
+                blue = (x + y) / rate;
+                
+                red = ((this.getWidth() - 1 - x)
+                    + (this.getHeight() - 1 - y)) / rate;
+                
+                pix.setRed(pix.getRed() + red);
+                
+                pix.setBlue(pix.getBlue() + blue);
+            }
+        }
+    }
+}
