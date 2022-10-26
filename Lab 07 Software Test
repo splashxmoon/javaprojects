@@ -1,0 +1,96 @@
+import student.micro.*;
+import student.micro.jeroo.*;
+import static student.micro.jeroo.CompassDirection.*;
+import static student.micro.jeroo.RelativeDirection.*;
+import static org.assertj.core.api.Assertions.*;
+
+
+public class CopyingJerooTest
+    extends TestCase
+{
+    
+    private CopyingJeroo jeroo;
+    private Jeroo copier;
+
+    
+    /**
+     * Creates a new CopyingJerooTest test object.
+     */
+    public CopyingJerooTest()
+    {
+        // The constructor is usually empty in unit tests, since it runs
+        // once for the whole class, not once for each test method.
+        // Per-test initialization should be placed in setUp() instead.
+    }
+
+
+    /**
+     * Sets up the test fixture.
+     * Called before every test case method.
+     */
+    public void setUp()
+    {
+        Island island = new DualIsland();
+        copier = new Jeroo(1000);
+        jeroo = new CopyingJeroo(copier);
+        island.addObject(jeroo, 1, 1);
+        island.addObject(copier, 10, 1);
+    }
+
+
+    /**
+     * Check hopToWater(), assuming that setUp() places the
+     * jeroo at (1, 1) facing east.
+     */
+    public void testHopToWater()
+    {
+        jeroo.hopToWater();
+        assertThat(jeroo.getX()).isEqualTo(8);
+        assertThat(copier.seesWater(AHEAD)).isTrue();
+        assertThat(!copier.seesFlower(HERE)).isTrue();
+        assertThat(copier.hasFlower()).isTrue();
+    }
+    
+    /**
+     * Tests the hop() method
+     */
+    public void testhop()
+    {
+        jeroo.hop();
+        assertThat(copier.isFacing(EAST)).isTrue();
+        assertThat(jeroo.isFacing(EAST)).isTrue();
+        assertThat(jeroo.getY()).isEqualTo(1);
+        assertThat(copier.getY()).isEqualTo(1);
+    
+    }
+    
+    /**
+     * Tests the turnAround() method
+     */
+    public void testturnAround()
+    {
+        jeroo.turnAround();
+        assertThat(!copier.seesWater(AHEAD)).isTrue();
+        assertThat(!jeroo.seesWater(AHEAD)).isTrue();
+    }
+    
+    /**
+     * Tests the turnAround() method if it is false
+     */
+    public void testfalseturnAround()
+    {
+        jeroo.turnAround();
+        assertThat(copier.isFacing(EAST)).isTrue();
+        assertThat(jeroo.isFacing(EAST)).isTrue();        
+    }
+    
+    /**
+     * Tests the walkIsland() method
+     */
+    public void testwalkIsland()
+    {
+        jeroo.walkIsland();
+        assertThat(copier.getY()).isEqualTo(8);
+    }
+    
+}
