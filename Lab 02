@@ -1,0 +1,125 @@
+
+import student.micro.jeroo.*;
+
+public class Lab02Solution
+    extends PlantationIsland
+{
+    /**
+     * Initializes a newly created Lab02Solution object.
+     */
+    public Lab02Solution()
+    {
+        super();
+    }
+    
+    /**
+     * Makes the jeroos go pick up and plant the flowers
+     */
+    public void myProgram()
+    {
+        Harvester andy = new Harvester();
+        this.addObject(andy, 2, 3);
+        andy.harvestRow();
+        SkippingHarvester bob = new SkippingHarvester();
+        this.addObject(bob, 2, 5);
+        bob.harvestRow();
+        PlantingHarvester ock = new PlantingHarvester();
+        this.addObject(ock, 2, 7);
+        ock.harvestRow();
+    }
+import student.micro.jeroo.*;
+
+public class SkippingHarvester
+    extends Harvester
+{
+    /**
+     * Initializes a newly created SkippingHarvester object.
+     */
+    public SkippingHarvester()
+    {
+        super();
+        /*# Do any work to initialize your class here. */
+    }
+
+    /**
+     * Hops and picks up the flower and then hops again
+     */
+    public void hop2AndPick()
+    {
+        hopAndPick();
+        this.hop();
+    }
+    
+}
+
+import student.micro.jeroo.*;
+
+public class Harvester
+    extends Jeroo
+{
+    /**
+     * Initializes a newly created Harvester object.
+     */
+    public Harvester()
+    {
+        super();
+    }
+    
+    /**
+     * Hops and picks up the flower
+     */
+    public void hopAndPick()
+    {
+        this.hop();
+        this.pick();
+    }
+    
+    /**
+     * Hops and pick up the flower twice
+     */
+    public void hop2AndPick()
+    {
+        this.hop();
+        this.pick();
+        this.hop();
+        this.pick();
+    }
+    
+    /**
+     * Picks up all of the flowers in the row
+     */
+    public void harvestRow()
+    {
+        hop2AndPick();
+        hop2AndPick();
+        hop2AndPick();
+    }
+   
+}
+import student.micro.jeroo.*;
+
+public class PlantingHarvester
+    extends Harvester
+{
+    
+    /**
+     * Initializes a newly created PlantingHarvester object.
+     */
+    public PlantingHarvester()
+    {
+        super();
+        /*# Do any work to initialize your class here. */
+    }
+    
+    /**
+     * Picks up the flowers then plants the flowers the next tile
+     */
+    public void hop2AndPick()
+    {   
+        hopAndPick();
+        this.hop();
+        this.plant();
+        
+    }
+
+}
