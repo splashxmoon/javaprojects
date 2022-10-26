@@ -1,0 +1,59 @@
+import student.micro.jeroo.*;
+
+public class SquarePlanter
+    extends Jeroo
+{
+    
+    private int total;
+    /**
+     * Intializes the flowers
+     * @param flowersPerSide has the flowers on each side
+     */
+    public SquarePlanter(int flowersPerSide)
+    {
+        super(flowersPerSide * 4);
+        total = flowersPerSide;
+    }
+    
+    /**
+     * Runs the other methods
+     */
+    public void plantSquare()
+    {
+        this.plantOneSide();
+        this.plantOneSide();
+        this.plantOneSide();
+        this.plantOneSide();
+    }
+    
+    /**
+     * Plants the flowers per each side
+     */
+    public void plantOneSide()
+    {
+        int x = total;
+        while (x >= 1 && !this.seesFlower(AHEAD))
+        {
+            this.plantAllSides();
+            total = x;
+        }
+        
+    }
+    
+    /**
+     * The method to plant the flowers
+     */
+    public void plantAllSides()
+    {
+        while (total > 0)
+        {
+            this.hop();
+            this.plant();
+            total = total - 1;
+        }
+        this.turn(RIGHT);
+    }
+    //~ Methods ...............................................................
+
+
+}
