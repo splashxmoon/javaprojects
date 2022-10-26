@@ -1,0 +1,96 @@
+import student.micro.jeroo.*;
+
+
+public class CopyingJeroo
+    extends Jeroo
+{
+   
+    private Jeroo copier;
+    /**
+     * Initializes a newly created CopyingJeroo object.
+     * @param copier another instance of jeroo
+     */
+    public CopyingJeroo(Jeroo copier)
+    {
+        super();
+        this.copier = copier;
+    }
+
+
+    //~ Methods ...............................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Walk a pattern over every grid location on the current island.
+     */
+    public void walkIsland()
+    {
+        this.hopToWater();
+        while (!(this.getX() == 1 && this.getY() == 8))
+        {
+            this.turnAround();
+            this.hopToWater();
+        }
+    }
+    
+    /**
+     * This will make jeroo and copier hop
+     */
+    public void hop()
+    {
+        super.hop();
+        this.copier.hop();
+    }
+    
+    /**
+     * This will make jeroo turn around if it sees Water
+     */
+    public void turnAround()
+    {
+        while (this.seesWater(AHEAD))
+        {
+            if (this.isFacing(EAST))
+            {
+                this.turn(RIGHT);
+                this.hop();
+                this.turn(RIGHT);
+            }
+            else
+            {
+                this.turn(LEFT);
+                this.hop();
+                this.turn(LEFT);
+            }
+        }
+    }
+    
+    /**
+     * The direction both jeroo and copier are in
+     * @param direction gives the general direction for jeroo
+     */
+    public void turn(RelativeDirection direction)
+    {
+        super.turn(direction);
+        this.copier.turn(direction);
+    }
+    
+    /**
+     * Hop forward until we reach the water.
+     */
+    public void hopToWater()
+    {
+        if (this.seesFlower(HERE))
+        {
+            this.copier.plant();
+        }
+        
+        while (!this.seesWater(AHEAD))
+        {
+            this.hop();
+            if (this.seesFlower(HERE))
+            {
+                this.copier.plant();
+            }
+        }
+    }
+}
