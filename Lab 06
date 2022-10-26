@@ -1,0 +1,65 @@
+import student.media.*;
+
+
+public class TransformablePicture
+    extends Picture
+{
+    
+    /**
+     * Initializes a newly created TransformablePicture object as a copy
+     * of another image.
+     * @param original takes the picture
+     */
+    public TransformablePicture(Picture original)
+    {
+        super(original);
+    }
+
+
+    /**
+     * Turns the red intensity of every pixel in this image up to
+     * the maximum value.
+     */
+    public void maxRed()
+    {
+        for (Pixel pix : this.getPixels())
+        {
+            pix.setRed(255);
+        }
+    }
+    /**
+     * Turns the green intensity of every pixel in this image up to
+     * the maximum value.
+     */
+    public void maxGreen()
+    {
+        for (Pixel pix : this.getPixels())
+        {
+            pix.setGreen(255);
+        } 
+    }
+    /**
+     * Turns the blue intensity of every pixel in this image up to
+     * the maximum value.
+     */
+    public void maxBlue()
+    {
+        for (Pixel pix : this.getPixels())
+        {
+            pix.setBlue(255);
+        } 
+    }
+    /**
+     * Turns the intensity of every pixel in this image 
+     * @param amount takes in the amount to change the pixels
+     */
+    public void brighten(int amount)
+    {
+        for (Pixel pix : this.getPixels())
+        {
+            pix.setBlue(pix.getBlue() + amount);
+            pix.setRed(pix.getRed() + amount);
+            pix.setGreen(pix.getGreen() + amount);
+        }
+    }
+}
