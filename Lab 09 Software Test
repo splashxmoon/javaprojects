@@ -1,0 +1,75 @@
+
+import student.micro.*;
+import static org.assertj.core.api.Assertions.*;
+import java.util.*;
+import static student.micro.jeroo.RelativeDirection.*;
+
+public class FlowerCollectorTest
+    extends TestCase
+{
+    //~ Fields ................................................................
+    private FlowerCollector collector;
+    
+
+    //~ Constructor ...........................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Creates a new FlowerCollectorTest test object.
+     */
+    public FlowerCollectorTest()
+    {
+        // The constructor is usually empty in unit tests, since it runs
+        // once for the whole class, not once for each test method.
+        // Per-test initialization should be placed in setUp() instead.
+    }
+
+
+    //~ Methods ...............................................................
+
+    // ----------------------------------------------------------
+    /**
+     * Sets up the test fixture.
+     * Called before every test case method.
+     */
+    public void setUp()
+    {
+        /*# Insert your own setup code here */
+        FlowerIsland island = new FlowerIsland(4, 4);
+        collector = new FlowerCollector();
+        island.addObject(collector, 1, 1);
+    }
+    
+    /**
+     * Tests the collectFlower() method
+     */
+    public void testcollectFlowers()
+    {
+        collector.collectFlowers();
+        
+        assertThat(collector.getX()).isEqualTo(2);
+        assertThat(collector.getY()).isEqualTo(2);
+        assertThat(collector.getBasket().size()).isEqualTo(2);
+    }
+    
+    /**
+     * Tests the getBasket() method
+     */
+    public void testgetBasket()
+    {
+        assertThat(collector.getBasket().size()).isEqualTo(0);
+    }
+    /**
+     * Tests the pick() method
+     */
+    public void testpick()
+    {
+        collector.pick();
+        
+        assertThat(collector.seesFlower(HERE)).isFalse();
+        assertThat(collector.hasFlower()).isFalse();
+    }
+    // ----------------------------------------------------------
+    /*# Insert your own test methods here */
+
+}
