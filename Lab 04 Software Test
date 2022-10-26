@@ -1,0 +1,93 @@
+import student.micro.*;
+import static org.assertj.core.api.Assertions.*;
+import student.micro.jeroo.*;
+import static student.micro.jeroo.CompassDirection.*;
+import static student.micro.jeroo.RelativeDirection.*;
+
+
+public class FlowerPickerTest
+    extends TestCase
+{
+    
+    /**
+     * Creates a new FlowerPickerTest test object.
+     */
+    public FlowerPickerTest()
+    {
+        // The constructor is usually empty in unit tests, since it runs
+        // once for the whole class, not once for each test method.
+        // Per-test initialization should be placed in setUp() instead.
+    }
+  
+    /**
+     * Test the pickLine() method on flower patch A's northwest corner.
+     */
+    public void testPickLine()
+    {
+        Island island = new Lab04Island();
+        FlowerPicker picker = new FlowerPicker();
+        island.addObject(picker, 2, 2);
+
+        picker.pickLine();
+
+        assertThat(picker.getX()).isEqualTo(6);
+        assertThat(picker.getY()).isEqualTo(2);
+        assertThat(picker.isFacing(EAST)).isTrue();
+        assertThat(picker.getFlowers()).isEqualTo(5);
+        assertThat(island.countFlowers()).isEqualTo(37);
+
+        // 3. Make assertions capturing your expected outcomes
+    }
+    
+    /**
+     * Test the PickLineE() method
+     */
+    public void testPickLineE()
+    {
+        Island island = new Lab04Island();
+        FlowerPicker picker = new FlowerPicker();
+        island.addObject(picker, 10, 8);
+        
+        picker.turn(RIGHT);
+        picker.pickLine();
+
+        assertThat(picker.getX()).isEqualTo(10);
+        assertThat(picker.getY()).isEqualTo(10);
+        assertThat(picker.isFacing(SOUTH)).isTrue();
+        assertThat(island.countFlowers()).isEqualTo(39);
+    }
+    /**
+     * Test the turnAroundRight() method on any flower patch 
+     */
+    public void testTurnAroundRight()
+    {
+        Island island = new Lab04Island();
+        FlowerPicker picker = new FlowerPicker();
+        island.addObject(picker, 8, 2);
+        
+        picker.turnAroundRight();
+        
+        assertThat(picker.getX()).isEqualTo(8);
+        assertThat(picker.getY()).isEqualTo(3);
+        assertThat(picker.isFacing(WEST)).isTrue();
+
+    }
+    
+    /**
+     * Test 
+     */
+    public void testPick2LinesA()
+    {
+        Island island = new Lab04Island();
+        FlowerPicker picker = new FlowerPicker();
+        island.addObject(picker, 6, 2);
+        
+        picker.pick2Lines();
+        
+        assertThat(picker.getX()).isEqualTo(2);
+        assertThat(picker.getY()).isEqualTo(3);
+        assertThat(picker.isFacing(WEST)).isTrue();
+        assertThat(picker.getFlowers()).isEqualTo(5);
+        assertThat(island.countFlowers()).isEqualTo(29);
+    }
+}
