@@ -1,0 +1,109 @@
+import student.micro.jeroo.*;
+
+
+public class NetIsland
+    extends NetIslandBase
+{
+   
+    /**
+     * Initializes a newly created NetIsland object.
+     */
+    public NetIsland()
+    {
+        super();
+    }
+    
+    /**
+     * Places Jeroo on the map
+     */
+    public void myProgram()
+    {
+        NetRemover ock = new NetRemover();
+        this.addObject(ock, 3, 1);
+        ock.pickFlowersAndDisableNets();
+    }
+}
+
+
+import student.micro.jeroo.*;
+
+public class NetRemover
+    extends Jeroo
+{
+   
+    /**
+     * Initializes a newly created NetRemover object.
+     */
+    public NetRemover()
+    {
+        super();
+        /*# Do any work to initialize your class here. */
+    }
+    
+    /**
+     * Picks up flowers and disbles the nets
+     */
+    public void pickFlowersAndDisableNets()
+    {
+        pickFlowers();
+        goBackUp();
+        disableNets();
+    }
+    
+    /**
+     * Disables the nets if Jeroo sees one
+     */
+    public void disableNets()
+    {
+        
+        while (!this.seesNet(AHEAD))
+        {
+            this.hop();
+        }
+        if (this.seesNet(AHEAD) || this.seesNet(RIGHT) || this.seesNet(LEFT) )
+        {
+            this.toss();
+        }
+        this.hop();
+        this.turn(RIGHT);
+        while (this.seesNet(AHEAD) && this.hasFlower())
+        {
+            this.toss();
+            this.hop();
+        }
+    }
+    
+    /**
+     * Picks up all of the flowers in the row
+     */
+    public void pickFlowers()
+    {
+        this.turn(RIGHT);
+        while (this.seesFlower(AHEAD))
+        {
+            this.hop();
+            this.pick();
+        }
+        if (this.hasFlower())
+        {
+            this.turn(LEFT);
+            this.turn(LEFT);
+        }
+    }
+    
+    /**
+     * Goes back up to the top of the map
+     */
+    public void goBackUp()
+    {
+        if (this.hasFlower())
+        {
+        while (!this.seesFlower(AHEAD) && !this.seesWater(AHEAD))
+            {
+                this.hop();
+            }
+            this.turn(RIGHT);
+        }
+    }
+    
+}
